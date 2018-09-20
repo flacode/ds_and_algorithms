@@ -8,39 +8,41 @@
 """
 
 count = 0
-def merge_sort(arr):
+def merge_sort(arr, start, end):
     global count
-    if len(arr) > 1:
-        middle = len(arr)//2
-        
-        left = arr[:middle]
-        right = arr[middle:]
+    if end-start < 2:
+        return
 
-        merge_sort(left)
-        merge_sort(right)
+    mid = (start+end)//2
+    merge_sort(arr, start, mid)
+    merge_sort(arr, mid, end)
 
-        i=j=k=0
-        
-        
-        while(i<len(left) and j<len(right)):
-            if left[i] <= right[j]:
-                arr[k] = left[i]
-                i += 1
-            else:
-                arr[k] = right[j]
-                j += 1
-                count += (len(left)-i)
-            k += 1
+    if arr[mid-1] <= arr[mid]: # optimization, case when the subarrays are already sorted. 
+        return
 
-        while i<len(left):
-            arr[k] = left[i]
-            i += 1 
-            k = k+1
-            
-        while j<len(right):
-            arr[k] = right[j]
+    temp = []
+    i = start
+    j = mid
+    while (i < mid and j < end):
+        if arr[i] <= arr[j]:
+            temp.append(arr[i])
+            i += 1
+        else:
+            temp.append(arr[j])
             j += 1
-            k = k+1
+            count += mid - i
+
+
+    while (i < mid): # optimization, only the left side needs to appended to temp, for the rest, the array is already sorted
+        arr[start+len(temp)] = arr[i]
+        i += 1
+    
+    t = 0
+    while(start < end and t < len(temp)):
+        arr[start] = temp[t]
+        start = start + 1
+        t = t + 1
+
     return count
     
 def countInversions(arr):
@@ -48,7 +50,7 @@ def countInversions(arr):
     count = 0
     if arr == sorted(arr):
         return count
-    return merge_sort(arr)
+    return merge_sort(arr, 0, len(arr))
 
 def conversion_count_naive(arr):
     count = 0
