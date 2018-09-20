@@ -38,7 +38,7 @@ def merge_sort(arr, start, end):
         i += 1
     
     t = 0
-    while(start < end and t < len(temp)):
+    while(t < len(temp)):
         arr[start] = temp[t]
         start = start + 1
         t = t + 1
@@ -50,7 +50,9 @@ def countInversions(arr):
     count = 0
     if arr == sorted(arr):
         return count
-    return merge_sort(arr, 0, len(arr))
+    count = merge_sort(arr, 0, len(arr))
+    print(arr)
+    return count
 
 def conversion_count_naive(arr):
     count = 0

@@ -32,10 +32,11 @@ def merge(arr, start, mid, end):
         i += 1
     
     t = 0
-    while(start < end and t < len(temp)):
+    while(t < len(temp)):
         arr[start] = temp[t]
         start = start + 1
         t = t + 1
+
 
 
 if __name__ == '__main__':
