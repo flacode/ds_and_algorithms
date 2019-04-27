@@ -1,0 +1,4 @@
+4. Queues
+3. Stacks
+2. Linked Lists
+1. Arrays
